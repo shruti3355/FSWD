@@ -1,0 +1,185 @@
+Step 1: Install Node.js
+
+Download and install:
+
+Node.js Official Website
+
+Verify installation:
+
+node -v
+npm -v
+Step 2: Install Angular CLI
+
+Open Command Prompt and run:
+
+npm install -g @angular/cli
+
+Verify:
+
+ng version
+Step 3: Create Angular Project
+ng new form-demo
+
+Choose:
+
+Would you like to create a zoneless application?
+No
+Which stylesheet format?
+CSS
+Enable SSR and SSG?
+No
+AI Tools?
+None
+Step 4: Move to Project Folder
+cd form-demo
+Step 5: Open VS Code
+code .
+Step 6: Install Forms Module Support
+
+Usually already available. If needed:
+
+npm install
+Step 7: Write Code
+
+Open:
+
+src/app/app.ts
+
+Paste:
+
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [FormsModule],
+  templateUrl: './app.html',
+  styleUrl: './app.css'
+})
+export class App {
+
+  student = {
+    name: '',
+    email: '',
+    course: ''
+  };
+
+  submitForm() {
+    alert('Form Submitted Successfully!');
+  }
+}
+
+Open:
+
+src/app/app.html
+
+Paste:
+
+<h1>Student Registration Form</h1>
+
+<form (ngSubmit)="submitForm()">
+
+  <label>Name:</label><br>
+  <input type="text" name="name" [(ngModel)]="student.name">
+
+  <br><br>
+
+  <label>Email:</label><br>
+  <input type="email" name="email" [(ngModel)]="student.email">
+
+  <br><br>
+
+  <label>Course:</label><br>
+
+  <select name="course" [(ngModel)]="student.course">
+    <option value="">Select Course</option>
+    <option value="CSE">CSE</option>
+    <option value="IT">IT</option>
+    <option value="ECE">ECE</option>
+  </select>
+
+  <br><br>
+
+  <button type="submit">Submit</button>
+
+</form>
+
+<hr>
+
+<h2>Entered Details</h2>
+
+<p>Name: {{student.name}}</p>
+<p>Email: {{student.email}}</p>
+<p>Course: {{student.course}}</p>
+
+Open:
+
+src/app/app.css
+
+Paste:
+
+body{
+  font-family: Arial;
+}
+
+h1{
+  color: blue;
+}
+
+input,select{
+  width: 250px;
+  padding: 5px;
+}
+
+button{
+  padding: 8px 15px;
+}
+Step 8: Check src/index.html
+
+Make sure it contains:
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>FormDemo</title>
+  <base href="/">
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>
+Step 9: Run the Application
+
+Open terminal in VS Code:
+
+ng serve
+
+or
+
+ng serve --open
+Step 10: Open Browser
+
+Visit:
+
+http://localhost:4200
+Expected Output
+Student Registration Form
+
+Name:  __________
+
+Email: __________
+
+Course: Select Course ▼
+
+[Submit]
+
+Entered Details
+Name:
+Email:
+Course:
+
+When you type values, they appear below immediately. Clicking Submit shows:
+
+Form Submitted Successfully!
