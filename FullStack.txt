@@ -1,0 +1,274 @@
+Exp1
+let name: string = "Riya";
+let age: number = 20;
+function display(name:string):void{
+    console.log(name);
+}
+interface Student{
+    name:string;
+    age:number;
+}
+class Person{
+    constructor(public name:string){}
+}
+display(name);
+
+Exp2
+Replace app.html with
+ <h1>Welcome to My First Angular Application</h1>
+<p>Name: Riya</p>
+<p>External: Create a Simple Web App Using Angular</p>
+Exp3
+Replace app.html with
+<h2>Interpolation Example</h2>
+<p>{{ url }}</p>
+
+<h2>Property Binding Example</h2>
+<img [src]="url" width="200">
+
+<h2>Event Binding Example</h2>
+<button (click)="showMessage()">Click Me</button>
+
+<h2>Two Way Data Binding</h2>
+<input type="text" [(ngModel)]="name">
+
+<p>You Entered: {{ name }}</p>
+AND app.ts with
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-root',
+  imports: [FormsModule],
+  templateUrl: './app.html',
+  styleUrl: './app.css'
+})
+export class App {
+  url = 'https://angular.io/assets/images/logos/angular/angular.png';
+
+  name = '';
+
+  showMessage() {
+    console.log('Hello World');
+  }
+}
+Exp4
+Replace app.html with
+<h1>Student Registration Form</h1>
+<form #myForm="ngForm">
+<label>Name:</label>
+  <input
+    type="text"
+    name="name"
+    [(ngModel)]="name"
+    required
+    minlength="3"
+    #n="ngModel">
+  <div *ngIf="n.invalid && n.touched">
+    Name must contain at least 3 characters
+  </div>
+  <br><br>
+  <label>Email:</label>
+  <input
+    type="email"
+    name="email"
+    [(ngModel)]="email"
+    required
+    #e="ngModel">
+
+  <div *ngIf="e.invalid && e.touched">
+    Enter a valid email address
+  </div>
+  <br><br>
+
+  <button type="submit">
+    Submit
+  </button>
+</form>
+
+<hr>
+<h2>Entered Data</h2>
+<p><b>Name:</b> {{name}}</p>
+<p><b>Email:</b> {{email}}</p>
+
+AND app.ts with
+
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  templateUrl: './app.html',
+  styleUrl: './app.css'
+})
+export class App {
+  name = '';
+  email = '';
+}
+Exp5
+Replace app.html with
+<h1>Structural Directives</h1>
+
+<h2>*ngIf Example</h2>
+
+<div *ngIf="showDiv">
+  Welcome to Angular
+</div>
+
+<hr>
+
+<h2>*ngFor Example</h2>
+
+<ul>
+  <li *ngFor="let fruit of fruits">
+    {{fruit}}
+  </li>
+</ul>
+<hr>
+
+<h2>*ngSwitch Example</h2>
+
+<div [ngSwitch]="color">
+  <p *ngSwitchCase="'red'">
+    Red Color Selected
+  </p>
+  <p *ngSwitchCase="'blue'">
+    Blue Color Selected
+  </p>
+  <p *ngSwitchCase="'green'">
+    Green Color Selected
+  </p>
+  <p *ngSwitchDefault>
+    Unknown Color
+  </p>
+</div>
+AND app.ts with
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './app.html',
+  styleUrl: './app.css'
+})
+export class App {
+
+  showDiv = true;
+
+  fruits = [
+    'Apple',
+    'Mango',
+    'Banana',
+    'Orange'
+  ];
+
+  color = 'blue';
+}
+EXP 6
+Step 1: Create Components
+ng generate component first
+ng generate component second
+Replace app.html with
+<h1>Routing Example</h1>
+<a routerLink="/first">First Component</a>
+<br><br>
+<a routerLink="/second">Second Component</a>
+<hr>
+<router-outlet></router-outlet>
+
+AND app.ts with
+import { Component } from '@angular/core';
+import {
+  RouterOutlet,
+  RouterLink
+} from '@angular/router';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [
+    RouterOutlet,
+    RouterLink
+  ],
+  templateUrl: './app.html',
+  styleUrl: './app.css'
+})
+export class App {}
+
+Replace app.routes.ts with
+import { Routes } from '@angular/router';
+
+import { FirstComponent } from './first/first';
+import { SecondComponent } from './second/second';
+
+export const routes: Routes = [
+  {
+    path: 'first',
+    component: FirstComponent
+  },
+  {
+    path: 'second',
+    component: SecondComponent
+  },
+  {
+    path: '',
+    redirectTo: 'first',
+    pathMatch: 'full'
+  }
+];
+Exp 7
+Step 1: Create Components
+ng generate service data
+
+Replace app.html with
+<h1>Service Example</h1>
+<hr>
+<p>{{message}}</p>
+
+AND app.ts with
+import { Component } from '@angular/core';
+import { DataService } from './data';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [],
+  templateUrl: './app.html',
+  styleUrl: './app.css'
+})
+export class App {
+
+  message = '';
+
+  constructor(private ds: DataService) {
+    this.message = this.ds.getMessage();
+  }
+}
+
+Replace data.ts with
+import { Injectable } from '@angular/core';
+@Injectable({
+  providedIn: 'root'
+})
+export class DataService {
+
+  constructor() { }
+
+  getMessage() {
+    return "Hello from Angular Service";
+  }
+}
+
+
+
+
+
+
+
+
+
