@@ -13,12 +13,62 @@ class Person{
 }
 display(name);
 
-Exp2
+Exp2  - Create a simple web app using angular.
+
 Replace app.html with
  <h1>Welcome to My First Angular Application</h1>
 <p>Name: Riya</p>
 <p>External: Create a Simple Web App Using Angular</p>
-Exp3
+
+app.ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  templateUrl: './app.html',
+  styleUrl: './app.css'
+})
+export class App {
+  title = 'My First Angular Web App';
+  name = 'Shruti';
+  branch = 'Computer Science and Engineering';
+
+  showMessage() {
+    alert('Welcome to Angular!');
+  }
+}
+
+app.css
+h1{
+    color: blue;
+    text-align: center;
+}
+
+h2{
+    color: green;
+}
+
+button{
+    padding: 10px;
+    margin-top: 10px;
+}
+
+index.html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Simple Web App</title>
+  <base href="/">
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>
+
+
+Exp3-  Demonstrate data binding and event binding in angular
 Replace app.html with
 <h2>Interpolation Example</h2>
 <p>{{ url }}</p>
@@ -33,6 +83,7 @@ Replace app.html with
 <input type="text" [(ngModel)]="name">
 
 <p>You Entered: {{ name }}</p>
+
 AND app.ts with
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -52,63 +103,129 @@ export class App {
     console.log('Hello World');
   }
 }
-Exp4
+
+app.css
+h1{
+  color: blue;
+  text-align: center;
+}
+
+input{
+  padding: 5px;
+  margin: 10px;
+}
+
+button{
+  padding: 8px 15px;
+}
+
+
+Exp4 -  Demonstration of Form Development Using Angular 
 Replace app.html with
 <h1>Student Registration Form</h1>
-<form #myForm="ngForm">
-<label>Name:</label>
+
+<form (ngSubmit)="submitForm()">
+
+  <label>Name:</label><br>
   <input
     type="text"
     name="name"
-    [(ngModel)]="name"
-    required
-    minlength="3"
-    #n="ngModel">
-  <div *ngIf="n.invalid && n.touched">
-    Name must contain at least 3 characters
-  </div>
+    [(ngModel)]="student.name"
+    required>
+
   <br><br>
-  <label>Email:</label>
+
+  <label>Email:</label><br>
   <input
     type="email"
     name="email"
-    [(ngModel)]="email"
-    required
-    #e="ngModel">
+    [(ngModel)]="student.email"
+    required>
 
-  <div *ngIf="e.invalid && e.touched">
-    Enter a valid email address
-  </div>
+  <br><br>
+
+  <label>Course:</label><br>
+
+  <select
+    name="course"
+    [(ngModel)]="student.course"
+    required>
+
+    <option value="">Select Course</option>
+    <option value="CSE">CSE</option>
+    <option value="IT">IT</option>
+    <option value="ECE">ECE</option>
+  </select>
+
   <br><br>
 
   <button type="submit">
     Submit
   </button>
+
 </form>
 
 <hr>
-<h2>Entered Data</h2>
-<p><b>Name:</b> {{name}}</p>
-<p><b>Email:</b> {{email}}</p>
+
+<h2>Entered Details</h2>
+
+<p><b>Name:</b> {{ student.name }}</p>
+<p><b>Email:</b> {{ student.email }}</p>
+<p><b>Course:</b> {{ student.course }}</p>
 
 AND app.ts with
 
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
-  name = '';
-  email = '';
+
+  student = {
+    name: '',
+    email: '',
+    course: ''
+  };
+
+  submitForm() {
+    alert(
+      'Form Submitted Successfully!\n' +
+      'Name: ' + this.student.name +
+      '\nEmail: ' + this.student.email +
+      '\nCourse: ' + this.student.course
+    );
+  }
 }
-Exp5
+
+app.css
+h1{
+    color: blue;
+    text-align: center;
+}
+
+form{
+    width: 300px;
+    margin: auto;
+}
+
+input, select{
+    width: 100%;
+    padding: 8px;
+}
+
+button{
+    padding: 8px 15px;
+    margin-top: 10px;
+}
+
+
+Exp5   Demonstrate structural directives in angular
 Replace app.html with
 <h1>Structural Directives</h1>
 
@@ -145,6 +262,7 @@ Replace app.html with
     Unknown Color
   </p>
 </div>
+
 AND app.ts with
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -169,10 +287,14 @@ export class App {
 
   color = 'blue';
 }
-EXP 6
-Step 1: Create Components
+
+
+EXP 6   Demonstrate page routing in angular 
+Step 1: Create Components - open terminal
 ng generate component first
+
 ng generate component second
+
 Replace app.html with
 <h1>Routing Example</h1>
 <a routerLink="/first">First Component</a>
@@ -221,54 +343,273 @@ export const routes: Routes = [
     pathMatch: 'full'
   }
 ];
-Exp 7
-Step 1: Create Components
+
+
+Exp 7 - Demonstrate services in angular
+Step 1: Create a New Angular Project
+ng new service-demo
+cd service-demo
+
+Step 2: Generate a Service
 ng generate service data
 
-Replace app.html with
-<h1>Service Example</h1>
-<hr>
-<p>{{message}}</p>
-
-AND app.ts with
-import { Component } from '@angular/core';
-import { DataService } from './data';
-
-@Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [],
-  templateUrl: './app.html',
-  styleUrl: './app.css'
-})
-export class App {
-
-  message = '';
-
-  constructor(private ds: DataService) {
-    this.message = this.ds.getMessage();
-  }
-}
-
-Replace data.ts with
+src/app/data.service.ts--
 import { Injectable } from '@angular/core';
+
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  constructor() { }
+  message = 'Hello from Angular Service';
 
   getMessage() {
-    return "Hello from Angular Service";
+    return this.message;
   }
+
 }
 
+src/app/app.ts--
+import { Component } from '@angular/core';
+import { DataService } from './data.service';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  templateUrl: './app.html',
+  styleUrl: './app.css'
+})
+export class App {
+
+  serviceMessage = '';
+
+  constructor(private dataService: DataService) {
+    this.serviceMessage = this.dataService.getMessage();
+  }
+
+}
+
+src/app/app.html--
+<h1>Angular Service Demo</h1>
+
+<hr>
+
+<h2>{{ serviceMessage }}</h2>
+
+src/app/app.css--
+h1{
+  color: blue;
+  text-align: center;
+}
+
+h2{
+  color: green;
+  text-align: center;
+}
+
+index.html--
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ServiceDemo</title>
+  <base href="/">
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>
 
 
 
+Exp 8  Handling Routes in Expressjs
+Step 1: Create Project Folder
+mkdir express-routing
+cd express-routing
+
+Step 2: Initialize Node.js Project
+npm init -y
+
+Step 3: Install Express
+npm install express
+
+server.js--
+const express = require('express');
+
+const app = express();
+
+const PORT = 3000;
+
+// Home Route
+app.get('/', (req, res) => {
+    res.send('Welcome to Home Page');
+});
+
+// About Route
+app.get('/about', (req, res) => {
+    res.send('Welcome to About Page');
+});
+
+// Contact Route
+app.get('/contact', (req, res) => {
+    res.send('Welcome to Contact Page');
+});
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
+
+
+Exp.9 Demonstrate middlewares from Expressjs 
+server.js--
+const express = require('express');
+
+const app = express();
+
+const PORT = 3000;
+
+// Middleware
+app.use((req, res, next) => {
+    console.log('Middleware Executed');
+    next();
+});
+
+// Route
+app.get('/', (req, res) => {
+    res.send('Welcome to Express Middleware Demo');
+});
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
 
 
 
+Exp 10  Demonstrate CURD operation on Mongodb
 
+Step 1: Create Project Folder
+mkdir mongodb-crud
+cd mongodb-crud
 
+Step 2: Initialize Node.js Project
+npm init -y
+
+Step 3: Install Required Packages
+npm install express mongoose
+
+server.js--
+const express = require('express');
+const mongoose = require('mongoose');
+
+const app = express();
+app.use(express.json());
+
+// MongoDB Connection
+mongoose.connect('mongodb://127.0.0.1:27017/studentdb')
+.then(() => console.log('MongoDB Connected'))
+.catch(err => console.log(err));
+
+// Schema
+const StudentSchema = new mongoose.Schema({
+    name: String,
+    age: Number,
+    course: String
+});
+
+// Model
+const Student = mongoose.model('Student', StudentSchema);
+
+// CREATE
+app.post('/addStudent', async (req, res) => {
+    const student = new Student(req.body);
+    await student.save();
+    res.send('Student Added Successfully');
+});
+
+// READ
+app.get('/students', async (req, res) => {
+    const students = await Student.find();
+    res.json(students);
+});
+
+// UPDATE
+app.put('/updateStudent/:id', async (req, res) => {
+    await Student.findByIdAndUpdate(req.params.id, req.body);
+    res.send('Student Updated Successfully');
+});
+
+// DELETE
+app.delete('/deleteStudent/:id', async (req, res) => {
+    await Student.findByIdAndDelete(req.params.id);
+    res.send('Student Deleted Successfully');
+});
+
+app.listen(3000, () => {
+    console.log('Server Running on Port 3000');
+});
+
+Step 5: Start MongoDB
+
+Open MongoDB Compass or MongoDB Server and ensure MongoDB is running.
+
+Step 6: Run the Application
+node server.js
+
+Testing CRUD Operations
+1. Create (Insert)
+
+POST Request:
+
+http://localhost:3000/addStudent
+
+JSON Body:
+
+{
+  "name": "Shruti",
+  "age": 21,
+  "course": "CSE"
+}
+
+Output:
+
+Student Added Successfully
+2. Read (Display)
+
+GET Request:
+
+http://localhost:3000/students
+
+Output:
+
+[
+  {
+    "_id":"123",
+    "name":"Shruti",
+    "age":21,
+    "course":"CSE"
+  }
+]
+3. Update
+
+PUT Request:
+
+http://localhost:3000/updateStudent/StudentID
+
+JSON Body:
+
+{
+  "age": 22
+}
+
+Output:
+
+Student Updated Successfully
+4. Delete
+
+DELETE Request:
+
+http://localhost:3000/deleteStudent/StudentID
+
+Output:
+
+Student Deleted Successfully
